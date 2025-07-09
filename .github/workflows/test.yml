@@ -2,6 +2,7 @@ name: Test jelly-rdf/setup-cli action
 
 on:
   push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
