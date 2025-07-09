@@ -1,0 +1,15 @@
+name: Test jelly-rdf/setup-cli action
+
+on:
+  push:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./
+      - name: Check jelly-cli version
+        run: jelly-cli version
