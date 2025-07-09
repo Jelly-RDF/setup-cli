@@ -1,0 +1,35 @@
+name: Setup Jelly CLI
+description: Download Jelly CLI and add it to PATH
+
+inputs:
+  version: 
+    description: Version of Jelly CLI to install
+    default: "latest"
+  token:
+    description: GitHub token for finding the latest release
+    default: ${{ github.token }}
+
+runs:
+  using: composite
+  steps:
+    - name: Setup Jelly CLI (Linux x86_64)
+      if: runner.os == 'Linux'
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        INPUT_VERSION: ${{ inputs.version }}
+      run: |
+        set -e
+        if [ $INPUT_VERSION = latest ]; then
+          version=$(gh api repos/Jelly-RDF/cli/releases/latest -q .tag_name); 
+        else 
+          version=$INPUT_VERSION; 
+        fi
+        wget -O /opt/jelly-cli "https://github.com/Jelly-RDF/cli/releases/download/$version/jelly-cli-linux-x86_64"
+        chmod +x /opt/jelly-cli
+        echo '/opt' >> $GITHUB_PATH
+    
+    - name: Setup Jelly CLI (Other)
+      if: runner.os != 'Linux'
+      run: |
+        echo "::error::Not yet implemented"
+        exit 1
