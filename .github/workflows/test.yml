@@ -10,6 +10,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: ./
-      - name: Check jelly-cli version
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run action
+        uses: ./
+      - name: Run jelly-cli version
         run: jelly-cli version
