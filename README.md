@@ -10,15 +10,21 @@ Simply run the action before `jelly-cli` usage.
 
 ```
 steps:
-  - name: Setup yt-dlp
-    uses: Jelly-RDF/setup-cli@v1
+  - uses: Jelly-RDF/setup-cli@v1
     
   - run: jelly-cli rdf to-jelly input.ttl > output.jelly
 ```
 
 ## Inputs
 ### `version` (optional)
-Version of the Jelly CLI to install, e.g. `v0.4.8`. Default: `latest`
+Version of the Jelly CLI to install, e.g., `v0.4.8`. Default: `latest`
 
 ### `token` (optional)
 GitHub token to use when searching the latest release. Unused if version is provided. Default: `${{ github.token }}`
+
+### Example
+```
+- uses: Jelly-RDF/setup-cli@v1
+  version: 'v0.4.8'
+  token: ${{ secrets.GITHUB_TOKEN }}
+```
