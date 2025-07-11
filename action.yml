@@ -12,27 +12,18 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Jelly CLI (Linux x86_64)
-      if: runner.os == 'Linux'
+    - name: Setup Jelly CLI (Unix-like)
+      if: runner.os == 'Linux' || runner.os == 'macOS'
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
         INPUT_VERSION: ${{ inputs.version }}
-      run: |
-        set -e
-        if [ $INPUT_VERSION = latest ]; then
-          version=$(gh api repos/Jelly-RDF/cli/releases/latest -q .tag_name); 
-        else 
-          version=$INPUT_VERSION; 
-          if [ ${version:0:1} != 'v' ]; then version="v$version"; fi
-        fi
-        wget -O /opt/jelly-cli "https://github.com/Jelly-RDF/cli/releases/download/$version/jelly-cli-linux-x86_64"
-        chmod +x /opt/jelly-cli
-        echo '/opt' >> $GITHUB_PATH
-    
-    - name: Setup Jelly CLI (Other)
-      if: runner.os != 'Linux'
-      shell: bash
-      run: |
-        echo "::error::Support for platforms other than Linux x86_64 is not yet implemented"
-        exit 1
+      run: $GITHUB_ACTION_PATH/unix-like.sh
+        
+    - name: Setup Jelly CLI (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        INPUT_VERSION: ${{ inputs.version }}
+      run: '& $env:GITHUB_ACTION_PATH\windows.ps1'
