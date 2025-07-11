@@ -20,10 +20,10 @@ runs:
         INPUT_VERSION: ${{ inputs.version }}
       run: $GITHUB_ACTION_PATH/unix-like.sh
         
-    
-    - name: Setup Jelly CLI (Other)
-      if: runner.os != 'Linux'
-      shell: bash
-      run: |
-        echo "::error::Support for platforms other than Linux x86_64 is not yet implemented"
-        exit 1
+    - name: Setup Jelly CLI (Windows)
+      if: runner.os == 'Windows'
+      shell: pwsh
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+        INPUT_VERSION: ${{ inputs.version }}
+      run: '& $env:GITHUB_ACTION_PATH\windows.ps1'
