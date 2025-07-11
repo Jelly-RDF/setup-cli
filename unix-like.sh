@@ -11,6 +11,9 @@ else
     osname="mac";
 fi
 arch=$(uname -m)
+if [ $arch = "aarch64" ]; then
+    arch="arm64"
+fi
 mkdir "$RUNNER_TOOL_CACHE/jelly-cli"
 wget -O "$RUNNER_TOOL_CACHE/jelly-cli/jelly-cli" "https://github.com/Jelly-RDF/cli/releases/download/$version/jelly-cli-$osname-$arch"
 chmod +x "$RUNNER_TOOL_CACHE/jelly-cli/jelly-cli"
