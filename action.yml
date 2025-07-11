@@ -12,8 +12,8 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Setup Jelly CLI (Linux x86_64)
-      if: runner.os == 'Linux'
+    - name: Setup Jelly CLI (Unix-like)
+      if: runner.os == 'Linux' || runner.os == 'macOS'
       shell: bash
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
