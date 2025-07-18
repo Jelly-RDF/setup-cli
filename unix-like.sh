@@ -15,6 +15,6 @@ if [ $arch = "aarch64" ]; then
     arch="arm64"
 fi
 mkdir "$RUNNER_TOOL_CACHE/jelly-cli"
-wget -O "$RUNNER_TOOL_CACHE/jelly-cli/jelly-cli" "https://github.com/Jelly-RDF/cli/releases/download/$version/jelly-cli-$osname-$arch"
+wget --progress=dot:mega -O "$RUNNER_TOOL_CACHE/jelly-cli/jelly-cli" "https://github.com/Jelly-RDF/cli/releases/download/$version/jelly-cli-$osname-$arch"
 chmod +x "$RUNNER_TOOL_CACHE/jelly-cli/jelly-cli"
 echo "$RUNNER_TOOL_CACHE/jelly-cli" >> $GITHUB_PATH
